@@ -6,10 +6,9 @@
             <!-- user dropdown starts -->
 
             <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
-              <li><a><span>菜单一</span></a></li>
-              <li><a><span>菜单二</span></a></li>
-              <li><a><span>菜单三</span></a></li>
-              <li><a><span>菜单四</span></a></li>
+              <li v-for="item in topMenus">
+                <a @click="toPath(item.note)"><span>{{item.name}}</span></a>
+              </li>
             </ul>
             <!-- top nav end -->
    </div>
@@ -17,7 +16,36 @@
 
 <script>
 export default {
-  name: 'Navbar1'
+  name: 'Navbar1',
+  data () {
+      return {
+        topId: this.$route.params.topId,
+        topMenus: ''
+      }
+    },
+    created(){
+      this.getTopMenu()
+    },
+    methods: {
+      getTopMenu: function () {
+        this.$http.post('/Jails/servlet/SystemFunctionServlet',
+           {
+              methodName  :   17,
+              id:             this.$route.params.topId
+           })
+           .then(function (res) {
+             console.log(res)
+             if (res.body.success) {
+              this.topMenus = res.body.data
+             }
+           }, function (err) {
+             console.warn(err)
+           })
+      },
+      toPath: function (note) {
+        this.$router.push({name: note})
+      }
+    }
 }
 </script>
 

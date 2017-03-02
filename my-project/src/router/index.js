@@ -7,6 +7,10 @@ import first from 'components/children/First.vue'
 import home1 from 'components/Home1.vue'
 import second from 'components/children1/Second.vue'
 
+import elecMap from 'components/children/elecMap.vue'
+import videoMonitor from 'components/children/videoMonitor.vue'
+
+
 Vue.use(Router)
 Vue.use(VueResource)
 
@@ -30,11 +34,6 @@ export default new Router({
           path: '/',
           name: 'Hello',
           component: Hello
-        },
-        {
-          path: 'first/:topId',
-          name: 'firstPart',
-          component: first
         }
       ]
     },
@@ -47,6 +46,23 @@ export default new Router({
           path: 'second',
           name: 'second',
           component: second
+        },
+        {
+          path: 'first/:topId/:systemName',
+          name: 'firstPart',
+          component: first,
+          children:[
+            {
+              path: 'elecMap',
+              name: 'start.electronicMap',
+              component: elecMap
+            },
+            {
+              path: 'videoMonitor',
+              name: 'start.videoMonitor',
+              component: videoMonitor
+            }
+          ]
         }
       ]
     }

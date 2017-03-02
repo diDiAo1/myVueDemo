@@ -12,24 +12,45 @@
 
             </div>
             <!-- user dropdown ends -->
-            <!-- top nav starts
-             <ul class="dropdown-menu">
-                                 <li><a id="updatePassword">修改密码</a></li>
-                                 <li class="divider"></li>
-                                 <li><a onclick="logout()">注销登录</a></li>
-                             </ul>
-             -->
-            <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
-            <li>
 
-            </li>
-            </ul>
+            <!-- <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
+              <li><a><span>菜单一</span></a></li>
+              <li><a><span>菜单二</span></a></li>
+              <li><a><span>菜单三</span></a></li>
+              <li><a><span>{{topId}}</span></a></li>
+              <li v-for="item in topMenus">
+                <span>item.name</span>
+              </li>
+            </ul>-->
             <!-- top nav end -->
    </div>
 </template>
 
 <script>
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  data () {
+    return {
+      topId: this.$route.params.topId,
+      topMenus: ''
+    }
+  },
+  methods: {
+    getTopMenu: function () {
+      this.$http.post('/Jails/servlet/SystemFunctionServlet',
+             {
+                methodName  :   17,
+                id:             this.$route.params.topId
+             })
+             .then(function (res) {
+               console.log(res)
+               if (res.body.success) {
+                this.topMenus = res.body.data
+               }
+             }, function (err) {
+               console.warn(err)
+             })
+    }
+  }
 }
 </script>

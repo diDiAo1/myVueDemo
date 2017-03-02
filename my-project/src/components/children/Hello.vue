@@ -11,10 +11,6 @@
                     <input class="txt1" type="text" id="txt_UserCode" v-model="username" placeholder="用户名"/>
                     <label class='error errorShow'></label>
                 </div>
-                <div id="userPassword">
-                    <input class="txt2" type="password" style='margin-top:8px;' v-model="password" id="txt_UserPassword" placeholder="密码"/>
-                    <label class='error errorShow'></label>
-                </div>
 				<button class="submit_btn" type="button" @click="login()">登录试试</button>
 			</div>
 		</form>
@@ -40,7 +36,7 @@ export default {
     return {
       msg: 'Welcome to Your Vue.js App',
       username: '',
-      password: ''
+      password: '698d51a19d8a121ce581499d7b701668'
     }
   },
   methods: {
@@ -53,7 +49,12 @@ export default {
         })
         .then(function (res) {
           console.log(res)
-          this.$router.push({name: 'firstPart', params: {topId: 123}})
+          if (res.data.success) {
+            this.$router.push({name: 'start.electronicMap', params: {topId: res.body.data.systemId, systemName: res.body.data.systemName}})
+          }
+          else {
+            alert("用户名或密码有误！");
+          }
         }, function (err) {
           console.warn(err)
         })
