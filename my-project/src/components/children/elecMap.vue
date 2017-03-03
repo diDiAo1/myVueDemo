@@ -29,6 +29,7 @@ export default {
   },
   created(){
       this.getSystemList();
+      this.setCurrentPath();
   },
   computed: {
     author () {
@@ -38,6 +39,9 @@ export default {
   methods: {
     toSecond: function () {
       this.$router.push({path: '/home1/second'})
+    },
+    setCurrentPath: function () {
+      this.$store.state.currentPath = 'start.electronicMap'
     },
    getSystemList: function () {
      this.$http.post('/Jails/servlet/AccessManagementServlet',

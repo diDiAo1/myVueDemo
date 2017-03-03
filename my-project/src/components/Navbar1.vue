@@ -1,30 +1,54 @@
 <template>
   <div class="navbar navbar-default1">
         <div class="navbar-inner">
-            <a class="navbar-brand"><span style="color: white">首页导航菜单</span>
+            <a class="navbar-brand"><span style="color: white">首页导航菜单{{data.currentPath}}</span>
             </a>
             <!-- user dropdown starts -->
 
             <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
               <li v-for="item in topMenus">
-                <a @click="toPath(item.note)"><span>{{item.name}}</span></a>
+                <a @click="toPath(item.note)"
+                :class="{ 'active': item.note === data.currentPath }"
+                >{{item.name }}</a>
               </li>
             </ul>
-            <!-- top nav end -->
+            <!-- top nav end
+             <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
+                           <li v-for="item in topMenus">
+                             <router-link :to="{ name: item.note}"
+                             :class="{ 'active': item.note === data.currentPath }"
+                             >{{item.name }}</router-link>
+                           </li>
+                         </ul>
+             -->
    </div>
 </template>
 
 <script>
+
 export default {
   name: 'Navbar1',
   data () {
       return {
         topId: this.$route.params.topId,
-        topMenus: ''
+        topMenus: '',
+        data: this.$store.state
       }
     },
     created(){
       this.getTopMenu()
+    },
+    watch: {
+      'data':{
+        handler:(val,oldVal)=>{
+          //要执行的任务
+          //这里不知道怎么才能修改到this.data的数据，有知道的麻烦告知
+          //现在知道的就是通过直接修改Store.state的方式来更新数据，当然效果和修改this.data是一样的
+          //alert('成功')
+        },
+        // 深度观察
+        deep:true
+      }
     },
     methods: {
       getTopMenu: function () {
@@ -47,6 +71,7 @@ export default {
       }
     }
 }
+
 </script>
 
 <style>
@@ -57,5 +82,10 @@ export default {
 
 .navbar-default1 a{
   color: #ffffff;
+}
+
+.navbar-default1 .navbar-nav>li>a.active, .navbar-default .navbar-nav>a.active>a:focus, .navbar-default .navbar-nav>a.active>a:hover {
+    color: #178acc;
+    background-color: #ffffff;
 }
 </style>

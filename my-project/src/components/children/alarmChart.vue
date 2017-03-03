@@ -15,20 +15,12 @@ export default {
   name: 'videoMonitor',
   data () {
     return {
-      msg: '视频联动页面',
+      msg: '报表页面',
     }
-  },
-  created(){
-      this.setCurrentPath();
   },
   computed: {
     author () {
       return this.$store.state.author
-    }
-  },
-  methods: {
-    setCurrentPath: function () {
-       this.$store.state.currentPath = 'start.videoMonitor'
     }
   }
 }
