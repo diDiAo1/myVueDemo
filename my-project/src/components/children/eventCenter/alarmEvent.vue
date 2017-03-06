@@ -1,26 +1,32 @@
 <template>
   <div>
-    <div class="col-md-12 map-content">
-      <div class="electronic-body" id="electronic-bg">
-        <h1>{{msg}}</h1>
-        <h2>{{author}}</h2>
-      </div>
-     </div>
+    <div class="electronic-body" id="electronic-bg">
+      <h1>{{msg}}</h1>
+      <h2>{{author}}</h2>
+    </div>
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'videoMonitor',
+  name: 'alarmEvent',
   data () {
     return {
       msg: '事件中心页面',
     }
   },
+  created () {
+      this.setCurrentPath();
+  },
   computed: {
     author () {
       return this.$store.state.author
+    }
+  },
+  methods: {
+    setCurrentPath: function () {
+      this.$store.state.currentPath = 'start.systemStart.alarmEvent'
     }
   }
 }

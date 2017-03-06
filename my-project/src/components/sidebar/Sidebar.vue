@@ -3,12 +3,19 @@
       <div class="nav-canvas">
         <ul class="nav nav-pills nav-stacked main-menu">
           <li class="nav-header">菜单列表</li>
-          <li>
-            <a data-toggle="pill">
+          <li v-for="item in sideBarMenus">
+            <a>
               <i class="glyphicon glyphicon-user"></i>
-              <span>菜单一</span>
+              <span>{{item.name}}</span>
             </a>
           </li>
+          <!--
+          <li v-for="item in topMenus">
+             <router-link :to="{ name: item.note}"
+             :class="{ 'active': item.note === data.currentPath }"
+             >{{item.name }}</router-link>
+           </li>
+          -->
         </ul>
       </div>
     </div>
@@ -16,7 +23,32 @@
 
 <script>
 export default {
-  name: 'sidebar'
+  name: 'sidebar',
+  data () {
+    return {
+      sideBarMenus: '',
+    }
+  },
+  created () {
+    this.getSideBarMenu()
+  },
+  methods: {
+    getSideBarMenu: function () {
+      this.$http.post('/Jails/servlet/SystemFunctionServlet',
+         {
+            methodName  :   18,
+            id:             this.$route.params.menuId
+         })
+         .then(function (res) {
+           console.log(res)
+           if (res.body.success) {
+            this.sideBarMenus = res.body.data
+           }
+         }, function (err) {
+           console.warn(err)
+         })
+    }
+  }
 }
 </script>
 

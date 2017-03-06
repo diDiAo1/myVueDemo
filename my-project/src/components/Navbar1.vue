@@ -1,13 +1,13 @@
 <template>
   <div class="navbar navbar-default1">
         <div class="navbar-inner">
-            <a class="navbar-brand"><span style="color: white">首页导航菜单{{data.currentPath}}</span>
+            <a class="navbar-brand"><span style="color: white">首页导航菜单</span>
             </a>
             <!-- user dropdown starts -->
 
             <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
               <li v-for="item in topMenus">
-                <a @click="toPath(item.note)"
+                <a @click="toPath(item.note,item.id)"
                 :class="{ 'active': item.note === data.currentPath }"
                 >{{item.name }}</a>
               </li>
@@ -66,8 +66,8 @@ export default {
              console.warn(err)
            })
       },
-      toPath: function (note) {
-        this.$router.push({name: note})
+      toPath: function (note,id) {
+        this.$router.push({name: note, params:{menuId: id}})
       }
     }
 }

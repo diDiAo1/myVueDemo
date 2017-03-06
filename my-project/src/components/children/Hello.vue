@@ -50,6 +50,7 @@ export default {
         .then(function (res) {
           console.log(res)
           if (res.data.success) {
+           // this.$router.push({name: 'start.electronicMap', params: {topId: res.body.data.systemId, systemName: res.body.data.systemName}})
             this.$router.push({name: 'start.electronicMap', params: {topId: res.body.data.systemId, systemName: res.body.data.systemName}})
           }
           else {

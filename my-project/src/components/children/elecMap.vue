@@ -5,7 +5,7 @@
         <h1>{{msg}}</h1>
         <button v-on:click="toSecond()">跳转到第二个页面</button>
         <h2>{{author}}</h2>
-        <h2>传递过来的topId：{{topId}}</h2>
+       <!-- <h2>传递过来的topId：{{topId}}</h2> -->
         <ul class="collapse navbar-collapse nav nav-pills navbar-nav top-menu">
           <li v-for="item in systemList">
             <span>{{item.name}}</span>
@@ -23,8 +23,8 @@ export default {
   data () {
     return {
       msg: '电子地图页面',
-      systemList: '',
-      topId: this.$route.params.topId
+      systemList: ''
+     // topId: this.$route.params.topId
     }
   },
   created(){
